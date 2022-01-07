@@ -1,24 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+
+import { AppointmentsPage } from './containers/appointmentsPage/AppointmentsPage';
+import { ContactsPage } from './containers/contactsPage/ContactsPage';
 
 function App() {
+  const [contacts, setContacts] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+
+  const ROUTES = {
+    CONTACTS: '/contacts',
+    APPOINTMENTS: '/appointments',
+  };
+
+  const addContact = (contactName, email, phone) => {
+    setContacts([
+      ...contacts,
+      {
+        contactName: contactName,
+        email: email,
+        phone: phone,
+      },
+    ]);
+  };
+
+  const addAppointment = (title, contact, date, time) => {
+    setAppointments([
+      ...appointments,
+      {
+        title: title,
+        contact: contact,
+        date: date,
+        time: time,
+      },
+    ]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <nav>
+        <NavLink
+          to={ROUTES.CONTACTS}
+          activeClassName="active"
+          className="nav_link"
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Contacts
+        </NavLink>
+        <NavLink
+          to={ROUTES.APPOINTMENTS}
+          activeClassName="active"
+          className="nav_link"
+        >
+          Appointments
+        </NavLink>
+      </nav>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to={ROUTES.CONTACTS} />
+          </Route>
+          <Route path={ROUTES.CONTACTS}>
+            {/* Add props to ContactsPage */}
+            <ContactsPage contacts={contacts} addContact={addContact} />
+          </Route>
+          <Route path={ROUTES.APPOINTMENTS}>
+            {/* Add props to AppointmentsPage */}
+            <AppointmentsPage
+              appointments={appointments}
+              addAppointment={addAppointment}
+              contacts={contacts}
+            />
+          </Route>
+        </Switch>
+      </main>
+    </>
   );
 }
 
