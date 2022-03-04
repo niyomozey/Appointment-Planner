@@ -5,7 +5,6 @@ export const AppointmentForm = ({
   contacts,
   title,
   setTitle,
-  // contact,
   setContact,
   date,
   setDate,
@@ -13,7 +12,6 @@ export const AppointmentForm = ({
   setTime,
   handleSubmit,
 }) => {
-  // get todays date to be used as input min
   const getTodayString = () => {
     const [month, day, year] = new Date()
       .toLocaleDateString('en-US')

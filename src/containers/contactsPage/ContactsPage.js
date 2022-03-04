@@ -45,28 +45,31 @@ export const ContactsPage = ({ contacts, addContact }) => {
   }, [name, contacts, duplicate]);
 
   return (
-    <div>
-      <section>
-        <h2>Add Contact</h2>
-        <ContactForm
-          name={name}
-          email={email}
-          phone={phone}
-          handleSubmit={handleSubmit}
-          setName={setName}
-          setEmail={setEmail}
-          setPhone={setPhone}
-        />
-      </section>
-      <hr />
-      <section>
-        <h2>Contacts</h2>
-      </section>
-      <section>
-        <ul>
-          <ContactList contacts={contacts} />
-        </ul>
-      </section>
+    <div className="contactPage">
+      <div>
+        <section>
+          <h2>Add Contact</h2>
+          <ContactForm
+            name={name}
+            email={email}
+            phone={phone}
+            handleSubmit={handleSubmit}
+            setName={setName}
+            setEmail={setEmail}
+            setPhone={setPhone}
+          />
+        </section>
+      </div>
+      
+      <div>
+          <section>
+            <h2>Contacts</h2>
+          </section>
+          <ul>
+            <ContactList contacts={contacts} />
+          </ul>
+      </div>
+      
     </div>
   );
 };
